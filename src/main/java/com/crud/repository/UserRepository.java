@@ -1,6 +1,7 @@
 package com.crud.repository;
 
 import com.crud.model.User;
+import org.jetbrains.annotations.NotNull;
 import software.amazon.awssdk.auth.credentials.AwsBasicCredentials;
 import software.amazon.awssdk.auth.credentials.StaticCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
@@ -18,19 +19,20 @@ public class UserRepository {
 
     // Create DB Connection
     public UserRepository() {
-        this.dynamoDb = DynamoDbClient.builder()
-                .endpointOverride(URI.create("http://localhost:8000"))
-                .region(Region.US_EAST_1)
-                .credentialsProvider(
-                        StaticCredentialsProvider.create(
-                                AwsBasicCredentials.create("dummy", "dummy")
-                        )
+        software.amazon.awssdk.services.dynamodb.DynamoDbClientBuilder builder = DynamoDbClient.builder();
+        builder.endpointOverride(URI.create("http://localhost:8000"));
+        builder.region(Region.US_EAST_1);
+        builder.credentialsProvider(
+                StaticCredentialsProvider.create(
+                        AwsBasicCredentials.create("dummy", "dummy")
                 )
+        );
+        this.dynamoDb = builder
                 .build();
     }
 
     // CREATE User
-    public void createUser(User user) {
+    public void createUser(@NotNull User user) {
         Map<String, AttributeValue> item = new HashMap<>();
         item.put("userId", AttributeValue.builder().s(user.getUserId()).build());
         item.put("name", AttributeValue.builder().s(user.getName()).build());
