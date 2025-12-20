@@ -1,9 +1,7 @@
 import com.crud.model.User;
 import com.crud.service.UserService;
-//import model.User;
-import com.crud.service.UserService;
 
-import static java.lang.System.*;
+import static java.lang.System.out;
 
 public class App {
     public static void main(String[] args) {
@@ -16,7 +14,7 @@ public class App {
         out.println("Created user u3");
 */
         // READ
-        User fetched = service.read("u3");
+        User fetched = service.read("u2");
         out.println("Fetched: " + fetched.getName());
         out.println("Fetched: " + fetched.getUserId());
         out.println("Fetched: " + fetched.getEmail());
