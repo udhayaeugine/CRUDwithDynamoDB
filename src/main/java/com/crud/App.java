@@ -1,3 +1,5 @@
+package com.crud;
+
 import com.crud.model.User;
 import com.crud.service.UserService;
 
